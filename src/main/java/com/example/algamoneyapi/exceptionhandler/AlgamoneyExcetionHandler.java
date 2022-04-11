@@ -1,5 +1,10 @@
 package com.example.algamoneyapi.exceptionhandler;
 
+import java.security.PublicKey;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +22,43 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class AlgamoneyExcetionHandler extends ResponseEntityExceptionHandler{
 	
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-	
 		
+		//retorna uma mensagem amigavel para o usuario da API
+		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null,LocaleContextHolder.getLocale());
+		 
+		//Retorna uma mensagem tecnica para o deselvolvedor
+		String mensagemDesenvolvedor = ex.getCause().toString();
+			
+		return handleExceptionInternal(ex, new Erro(mensagemUsuario, mensagemDesenvolvedor), headers, HttpStatus.BAD_REQUEST, request);		
 		
-		return handleExceptionInternal(ex, "Mensagem invalida", headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
+	public static class Erro{
+		
+		private String mensagemUsuario;
+		private String mensagemDesenvolvedor;
+		
+		public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
+			super();
+			this.mensagemUsuario = mensagemUsuario;
+			this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+		}
+		
+		
+		public String getMensagemUsuario() {
+			return mensagemUsuario;
+		}
+		
+		public String getMensagemDesenvolvedor() {
+			return mensagemDesenvolvedor;
+		}
+		
+	}
 	
 }
