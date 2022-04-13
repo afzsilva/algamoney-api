@@ -52,14 +52,14 @@ public class Pessoa {
 		this.ativo = ativo;
 	}
 	
-	/*
+	
 	public Long getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}*/
+	}
 
 	public Endereco getEndereco() {
 		return endereco;
