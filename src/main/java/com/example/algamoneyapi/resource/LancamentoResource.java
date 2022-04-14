@@ -35,7 +35,7 @@ public class LancamentoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Lancamento> criarLancamento(@RequestBody Lancamento lancamento){
+	public ResponseEntity<Lancamento> criarLancamento(@Valid @RequestBody Lancamento lancamento){
 		Lancamento lancamentoSalvo = service.cadastrarLancamento(lancamento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
 	}
