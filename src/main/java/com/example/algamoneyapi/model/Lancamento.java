@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,8 +23,13 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	private String descricao;
-	private LocalDate dataVencomento;
+	
+	@Column(name="data_vencimento")
+	private LocalDate dataVencimento;
+	
+	@Column(name="data_pagamento")
 	private LocalDate dataPagamento;
+	
 	private BigDecimal valor;
 	private String observacao;	
 	
@@ -46,14 +52,14 @@ public class Lancamento {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataVencomento() {
-		return dataVencomento;
+	public LocalDate getDataVencimento() {
+		return dataVencimento;
 	}
-
-	public void setDataVencomento(LocalDate dataVencomento) {
-		this.dataVencomento = dataVencomento;
+	
+	public void setDataVencimento(LocalDate dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
-
+	
 	public LocalDate getDataPagamento() {
 		return dataPagamento;
 	}
@@ -118,8 +124,5 @@ public class Lancamento {
 		Lancamento other = (Lancamento) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
-	
-	
-	
-	
+		
 }
