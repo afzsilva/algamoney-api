@@ -11,6 +11,7 @@ import com.example.algamoneyapi.model.Lancamento;
 import com.example.algamoneyapi.model.Pessoa;
 import com.example.algamoneyapi.repository.LancamentoRepository;
 import com.example.algamoneyapi.repository.PessoaRepository;
+import com.example.algamoneyapi.repository.filter.LancamentoFilter;
 import com.example.algamoneyapi.service.exception.PessoaInexistenteOuInativaException;
 
 @Service
@@ -23,6 +24,11 @@ public class LancamentoService {
 	private PessoaRepository pessoaRepository;
 	
 	
+	
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){		
+		return lancamentoRepository.filtrar(lancamentoFilter);
+	}
+	
 	public List<Lancamento> listar(){		
 		return lancamentoRepository.findAll();
 	}
@@ -33,11 +39,10 @@ public class LancamentoService {
 		
 		if (pessoa == null || pessoa.isInativo()) {
 			
-			throw new PessoaInexistenteOuInativaException();
-			
+			throw new PessoaInexistenteOuInativaException();			
 		}
 		
-		return null;
+		return lancamentoRepository.save(lancamento);
 	}
 		
 	public Lancamento buscarPorId(Long codigo) {		

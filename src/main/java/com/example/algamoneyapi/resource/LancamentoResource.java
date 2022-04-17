@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.algamoneyapi.exceptionhandler.AlgamoneyExcetionHandler.Erro;
 import com.example.algamoneyapi.model.Lancamento;
+import com.example.algamoneyapi.repository.filter.LancamentoFilter;
 import com.example.algamoneyapi.service.LancamentoService;
 import com.example.algamoneyapi.service.exception.PessoaInexistenteOuInativaException;
 
@@ -33,6 +34,11 @@ public class LancamentoResource {
 	@Autowired
 	private MessageSource messageSource;
 	
+	
+	public List<Lancamento> pesquisar(LancamentoFilter filter) {
+		
+		return lancamentoService.pesquisar(filter);
+	}
 	
 	public ResponseEntity<List<Lancamento>> listar(){
 		return ResponseEntity.ok(lancamentoService.listar());
