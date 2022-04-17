@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.algamoneyapi.model.Lancamento;
@@ -26,8 +27,8 @@ public class LancamentoService {
 	
 	
 	
-	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){		
-		return lancamentoRepository.filtrar(lancamentoFilter);
+	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable){		
+		return lancamentoRepository.filtrar(lancamentoFilter, pageable);
 	}
 	
 	public List<Lancamento> listar(){		

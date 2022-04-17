@@ -117,6 +117,10 @@ public class Lancamento {
 		this.pessoa = pessoa;
 	}
 
+	public Long getCodigo() {
+		return codigo;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
