@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.algamoneyapi.model.Lancamento;
@@ -53,7 +54,13 @@ public class LancamentoService {
 		Lancamento lancamentoRetornado = lancamentoRepository.save(lancamento);		
 		return lancamentoRetornado;
 	}
-		
+	
+	
+	public void deleteById(Long id){
+		lancamentoRepository.deleteById(id);
+	}
+	
+	
 	private Lancamento buscarLancamentoPeloCodigo(Long codigo) {
 		Optional<Lancamento> optlancamento = lancamentoRepository.findById(codigo);
 		if (!optlancamento.isPresent()) {
@@ -61,5 +68,7 @@ public class LancamentoService {
 		}
 		return optlancamento.get();
 	}	
+	
+	
 
 }
